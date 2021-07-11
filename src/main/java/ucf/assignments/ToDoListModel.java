@@ -6,22 +6,27 @@
 package ucf.assignments;
 
 import javafx.beans.property.Property;
-import javafx.scene.control.RadioButton;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
-import static ucf.assignments.ToDoListManagerController.filterToggleGroup;
-import static ucf.assignments.ToDoListManagerController.toDoListView;
-
+/* not necessary i think
 enum Filter {
     SHOWALL,
     SHOWNOTDONE,
     SHOWDONE
 }
+*/
 
 public class ToDoListModel {
-    private Collection<ToDoList> toDoListGroup;
+    private ArrayList<ToDoList> toDoListGroup;
     /*
     public RadioButton selectedButton;
     fix initialize in constructor if i put this back in
@@ -31,23 +36,21 @@ public class ToDoListModel {
         //set filter to selectedToggleGroup NOT NEEDED
         //this.selectedButton = (RadioButton) filterToggleGroup.getSelectedToggle();
         //initialize toDoListGroup
-        toDoListGroup = (Collection<ToDoList>) new ToDoList("List 1");
+        this.toDoListGroup = new ArrayList<ToDoList>();
+        this.toDoListGroup.add(new ToDoList("name"));
     }
 
     /*
     removed in second part
-
     public void addList() {
         //bring up popup window with string input box
         //call appendList with string
         //call updateViews
     }
-
     private void appendList(String s) {
         //add ToDoList object with title s to toDoListGroup
         this.toDoListGroup.add(new ToDoList(s));
     }
-
     public void removeList() {
         //check to see if a ToDoList is selected
             //bring up alert confirmation dialog
@@ -55,7 +58,6 @@ public class ToDoListModel {
             //call updateViews
         //if not do nothing
     }
-
     public void renameList() {
         //check to see if a ToDoList is selected
             //bring up popup window with string input box
@@ -63,33 +65,47 @@ public class ToDoListModel {
             //call updateViews
         //if not do nothing
     }
-
-
     private void updateList(Collection<ToDoList> c) {
         //set listTreeTable to c
     }
     */
 
     private void removeObjectFromList(ToDoList l) {
-        //remove ToDoList object l from  toDoListGroup
+        //remove ToDoList object l from toDoListGroup
+        this.toDoListGroup.remove(l);
     }
-
-
 
     private void changeListName(ToDoList l, String s) {
         //call ToDoList.setTitle using l and s
+        l.setTitle(s);
     }
 
     public void addItem() {
-        //check to see if a ToDoList is selected
-            //bring up popup window with two string input boxes for desc and date
+        //NOW NULL, ONLY ONE LIST ANYWAY check to see if a ToDoList is selected
+        //bring up popup window with two string input boxes for desc and date
+        try {
+            Parent newItemRoot = FXMLLoader.load(getClass().getResource("NewItemPopup.fxml"));
+            Scene newItemPopup = new Scene(newItemRoot);
+            Stage popup = null;
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setScene(newItemPopup);
+            popup.setTitle("New Task");
+            popup.showAndWait();
+
             //call addItemToList with selected ToDoList and the two returned strings
+            addItemToList(toDoListGroup.get(0), NewItemPopupController.dateField.getText(), NewItemPopupController.descriptionField.getText());
             //call updateViews
-        //if not do nothing
+            updateViews();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void addItemToList(ToDoList l, String s1, String s2) {
         //call ToDoList.addItem using l, s1, and s2
+        l.addItem(s1, s2);
     }
 
     public void removeItem() {
@@ -101,6 +117,7 @@ public class ToDoListModel {
 
     private void removeItemFromList(ToDoList l, ToDoListItem li) {
         //call ToDoList.removeItem using l and li
+        l.removeItem(li);
     }
 
     public void editItem() {
@@ -113,6 +130,7 @@ public class ToDoListModel {
 
     private void editItemValues(ToDoList l, ToDoListItem li, String s1, String s2) {
         //call ToDoList.editItem using l, li, s1, and s2
+        l.editItem(li, s1, s2);
     }
 
     public void completeToggle() {
@@ -122,20 +140,23 @@ public class ToDoListModel {
         //if not do nothing
     }
 
-    private void completeTogglePass(ToDoList l, ToDoListItem li) {
-        //call ToDoList.ToDoListItem.toggleComplete using l and li
+    private void completeTogglePass(ToDoListItem li) {
+        //call ToDoList.ToDoListItem.toggleComplete using li
+        li.toggleComplete();
     }
 
     public void sort() {
-        //check to see if a ToDoList is selected
-            //call sortItemList with the selected ToDoList
-            //call updateViews
-        //if not then do nothing
+        //call sortItemList with the selected ToDoList
+        toDoListGroup.get(0).sortItemList();
+        //call updateViews
+        updateViews();
     }
 
     public void updateViews() {
         //call updateFilter
+        updateFilter();
         //call updateTable with selected ToDoList
+        updateTable(toDoListGroup.get(0));
         //REMOVED call updateList with current Collection<ToDoList>
     }
 
@@ -207,8 +228,8 @@ public class ToDoListModel {
     }
 
     //redo to replace current collection
-    public Collection<ToDoList> addCollection(Collection<ToDoList> c1, Collection<ToDoList> c2) {
-        Collection<ToDoList> temp = null;
+    public ArrayList<ToDoList> addCollection(ArrayList<ToDoList> c1, ArrayList<ToDoList> c2) {
+        ArrayList<ToDoList> temp = null;
         //set temp to c1.add(c2)
         return temp;
     }

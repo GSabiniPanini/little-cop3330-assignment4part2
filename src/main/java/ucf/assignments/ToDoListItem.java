@@ -16,19 +16,17 @@ public class ToDoListItem {
     private boolean complete;
 
     public ToDoListItem(String s1, String s2) {
-        //set description to s1
-        updateDescription(s1);
-        //set date to s2
-        updateDate(s2);
+        //set date to s1 and description to s2
+        updateItem(s1, s2);
         //set complete to false
         this.complete = false;
     }
 
     public void updateItem(String s1, String s2) {
-        //call updateDescription using s1
-        updateDescription(s1);
-        //call updateDate using s2
-        updateDate(s2);
+        //call updateDate using s1
+        updateDate(s1);
+        //call updateDescription using s2
+        updateDescription(s2);
     }
 
     public void updateDescription(String s1) {
@@ -61,20 +59,18 @@ public class ToDoListItem {
     }
 
     public String getDescription() {
-        String s = this.description.toString();
-        //set s to description
-        return s;
+        //return the description
+        return this.description.toString();
     }
 
     public String getDate() {
-        String s = this.date;
-        //set s to date
-        return s;
+        //return the date
+        return this.date;
     }
 
     public String toString() {
-        String string = ("desc=" + getDescription() + " date=" + getDate() + " status=" + complete);
         //append description and date *and complete* to string using a particular format
+        String string = ("desc=" + getDescription() + " date=" + getDate() + " status=" + complete);
         return string;
     }
 }

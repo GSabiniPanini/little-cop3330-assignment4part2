@@ -6,7 +6,6 @@
 package ucf.assignments;
 
 import javafx.beans.property.SimpleStringProperty;
-
 import java.util.*;
 
 public class ToDoList {
@@ -42,8 +41,7 @@ public class ToDoList {
 
     public void editItem(ToDoListItem li, String s1, String s2) {
         //call ToDoListItem.updateItem using li, s1, and s2
-        int index = this.list.indexOf(li);
-        this.list.get(index).updateItem(s1, s2);
+        li.updateItem(s1, s2);
     }
 
     public void sortItemList() {
