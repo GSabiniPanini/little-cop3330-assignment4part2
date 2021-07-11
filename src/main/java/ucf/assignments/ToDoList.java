@@ -7,28 +7,32 @@ package ucf.assignments;
 
 import javafx.beans.property.SimpleStringProperty;
 
-import java.util.Collection;
+import java.util.*;
 
 public class ToDoList {
     private SimpleStringProperty title;
-    private Collection<ToDoListItem> list;
+    private ArrayList<ToDoListItem> list;
 
     public ToDoList(String name) {
         //set ToDoList title to name
+        setTitle(name);
         //set list to empty list
+        addItem("Description", "2002-014-14");
     }
 
     public String getTitle() {
         //return ToDoList title as string
-        return "";
+        return this.title.toString();
     }
 
     public void setTitle(String s) {
         //set ToDoList title to s
+        this.title = new SimpleStringProperty(s);
     }
 
     public void addItem(String s1, String s2) {
         //add new ToDoListItem object to list using s1 and s2
+        this.list.add(new ToDoListItem(s1, s2));
     }
 
     public void removeItem(ToDoListItem li) {
@@ -41,6 +45,7 @@ public class ToDoList {
 
     public void sortItemList() {
         //call Collection.sort on list to sort ToDoListItems by date
+        this.list.sort(Comparator.comparing());
     }
 
     public String toString() {

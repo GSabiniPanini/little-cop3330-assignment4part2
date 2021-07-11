@@ -6,9 +6,13 @@
 package ucf.assignments;
 
 import javafx.beans.property.Property;
+import javafx.scene.control.RadioButton;
 
 import java.io.File;
 import java.util.Collection;
+
+import static ucf.assignments.ToDoListManagerController.filterToggleGroup;
+import static ucf.assignments.ToDoListManagerController.toDoListView;
 
 enum Filter {
     SHOWALL,
@@ -18,12 +22,20 @@ enum Filter {
 
 public class ToDoListModel {
     private Collection<ToDoList> toDoListGroup;
-    public Filter filter;
+    /*
+    public RadioButton selectedButton;
+    fix initialize in constructor if i put this back in
+     */
 
     public ToDoListModel() {
-        //set filter to selectedToggleGroup
+        //set filter to selectedToggleGroup NOT NEEDED
+        //this.selectedButton = (RadioButton) filterToggleGroup.getSelectedToggle();
         //initialize toDoListGroup
+        toDoListGroup = (Collection<ToDoList>) new ToDoList("List 1");
     }
+
+    /*
+    removed in second part
 
     public void addList() {
         //bring up popup window with string input box
@@ -33,6 +45,7 @@ public class ToDoListModel {
 
     private void appendList(String s) {
         //add ToDoList object with title s to toDoListGroup
+        this.toDoListGroup.add(new ToDoList(s));
     }
 
     public void removeList() {
@@ -43,10 +56,6 @@ public class ToDoListModel {
         //if not do nothing
     }
 
-    private void removeObjectFromList(ToDoList l) {
-        //remove ToDoList object l from  toDoListGroup
-    }
-
     public void renameList() {
         //check to see if a ToDoList is selected
             //bring up popup window with string input box
@@ -54,6 +63,18 @@ public class ToDoListModel {
             //call updateViews
         //if not do nothing
     }
+
+
+    private void updateList(Collection<ToDoList> c) {
+        //set listTreeTable to c
+    }
+    */
+
+    private void removeObjectFromList(ToDoList l) {
+        //remove ToDoList object l from  toDoListGroup
+    }
+
+
 
     private void changeListName(ToDoList l, String s) {
         //call ToDoList.setTitle using l and s
@@ -115,7 +136,7 @@ public class ToDoListModel {
     public void updateViews() {
         //call updateFilter
         //call updateTable with selected ToDoList
-        //call updateList with current Collection<ToDoList>
+        //REMOVED call updateList with current Collection<ToDoList>
     }
 
     public void updateFilter() {
@@ -132,10 +153,6 @@ public class ToDoListModel {
 
     private void updateTable(ToDoList l) {
         //set toDoListView to l
-    }
-
-    private void updateList(Collection<ToDoList> c) {
-        //set listTreeTable to c
     }
 
     public void save() {
@@ -189,6 +206,7 @@ public class ToDoListModel {
         //else do nothing
     }
 
+    //redo to replace current collection
     public Collection<ToDoList> addCollection(Collection<ToDoList> c1, Collection<ToDoList> c2) {
         Collection<ToDoList> temp = null;
         //set temp to c1.add(c2)

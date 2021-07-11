@@ -22,13 +22,13 @@ public class ToDoListManagerController {
 
     @FXML private BorderPane borderPane;
     @FXML private Menu fileMenu;
-    @FXML private Menu filterMenu;
+    @FXML public static Menu filterMenu;
     @FXML private RadioMenuItem showAllFilter;
-    @FXML private ToggleGroup filterToggleGroup;
+    @FXML public static ToggleGroup filterToggleGroup;
     @FXML private RadioMenuItem showDoneFilter;
     @FXML private RadioMenuItem showNotDoneFilter;
     @FXML private GridPane leftGridPane;
-    @FXML private ListView<ToDoList> toDoListView;
+    @FXML public static ListView<ToDoList> toDoListView;
     @FXML private GridPane rightGridPane;
     @FXML private TreeTableView<ToDoListItem> listTreeTable;
     @FXML private TreeTableColumn<ToDoListItem, Boolean> doneColumn;
