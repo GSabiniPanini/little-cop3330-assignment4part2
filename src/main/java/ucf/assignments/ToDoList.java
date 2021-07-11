@@ -17,7 +17,7 @@ public class ToDoList {
         //set ToDoList title to name
         setTitle(name);
         //set list to empty list
-        addItem("Description", "2002-014-14");
+        addItem("Description", "2002-01-14");
     }
 
     public String getTitle() {
@@ -37,22 +37,29 @@ public class ToDoList {
 
     public void removeItem(ToDoListItem li) {
         //remove li from ToDoList
+        this.list.remove(li);
     }
 
     public void editItem(ToDoListItem li, String s1, String s2) {
         //call ToDoListItem.updateItem using li, s1, and s2
+        int index = this.list.indexOf(li);
+        this.list.get(index).updateItem(s1, s2);
     }
 
     public void sortItemList() {
         //call Collection.sort on list to sort ToDoListItems by date
-        this.list.sort(Comparator.comparing());
+        Collections.sort(this.list, new SortByDateComparator());
     }
 
     public String toString() {
         String string = "";
         //Iterate through list collection
+        for(ToDoListItem i : list) {
             //append toStrings of ToDoListItems to string
+            string += i.toString();
             //append \n after each ToDoListItem
+            string += "\n";
+        }
         return string;
     }
 
