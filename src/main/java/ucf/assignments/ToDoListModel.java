@@ -18,66 +18,27 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /* not necessary i think
-enum Filter {
-    SHOWALL,
-    SHOWNOTDONE,
-    SHOWDONE
-}
+enum Filter { }
 */
 
 public class ToDoListModel {
-    private ArrayList<ToDoList> toDoListGroup;
-    /*
+    public ArrayList<ToDoList> toDoListGroup;
+    private String filter;
+    /*REMOVED
     public RadioButton selectedButton;
-    fix initialize in constructor if i put this back in
-     */
+    fix initialize in constructor if i put this back in*/
 
     public ToDoListModel() {
-        //set filter to selectedToggleGroup NOT NEEDED
-        //this.selectedButton = (RadioButton) filterToggleGroup.getSelectedToggle();
+        //REMOVED this.selectedButton = (RadioButton) filterToggleGroup.getSelectedToggle();
         //initialize toDoListGroup
         this.toDoListGroup = new ArrayList<ToDoList>();
         this.toDoListGroup.add(new ToDoList("name"));
     }
 
-    /*
-    removed in second part
-    public void addList() {
-        //bring up popup window with string input box
-        //call appendList with string
-        //call updateViews
-    }
-    private void appendList(String s) {
-        //add ToDoList object with title s to toDoListGroup
-        this.toDoListGroup.add(new ToDoList(s));
-    }
-    public void removeList() {
-        //check to see if a ToDoList is selected
-            //bring up alert confirmation dialog
-            //call removeObjectFromList with selected ToDoList
-            //call updateViews
-        //if not do nothing
-    }
-    public void renameList() {
-        //check to see if a ToDoList is selected
-            //bring up popup window with string input box
-            //call changeListName with selected ToDoList and returned string
-            //call updateViews
-        //if not do nothing
-    }
-    private void updateList(Collection<ToDoList> c) {
-        //set listTreeTable to c
-    }
-    */
 
     private void removeObjectFromList(ToDoList l) {
         //remove ToDoList object l from toDoListGroup
         this.toDoListGroup.remove(l);
-    }
-
-    private void changeListName(ToDoList l, String s) {
-        //call ToDoList.setTitle using l and s
-        l.setTitle(s);
     }
 
     public void addItem() {
@@ -96,11 +57,35 @@ public class ToDoListModel {
             addItemToList(toDoListGroup.get(0), NewItemPopupController.dateField.getText(), NewItemPopupController.descriptionField.getText());
             //call updateViews
             updateViews();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void renameList() {
+        //bring up popup window with string input box
+        try {
+            Parent renameListRoot = FXMLLoader.load(getClass().getResource("RenameListPopup.fxml"));
+            Scene renameListPopup = new Scene(renameListRoot);
+            Stage popup = null;
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setScene(renameListPopup);
+            popup.setTitle("Rename List");
+            popup.showAndWait();
+
+            //call changeListName with selected ToDoList and returned string
+            changeListName(toDoListGroup.get(0), RenameListPopupController.nameField.getText());
+            //call updateViews
+            updateViews();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void changeListName(ToDoList l, String s) {
+        //call ToDoList.setTitle using l and s
+        l.setTitle(s);
     }
 
     private void addItemToList(ToDoList l, String s1, String s2) {
@@ -109,9 +94,27 @@ public class ToDoListModel {
     }
 
     public void removeItem() {
+        boolean found = false;
+        int foundIndex = 0;
         //check to see if a ToDoListItem is selected
-            //call removeItemFromList with selected ToDoList and ToDoListItem
+        for(int i=0; i<ToDoListManagerController.listTreeTable.getExpandedItemCount(); i++) {
+            if(ToDoListManagerController.listTreeTable.getSelectionModel().isSelected(i)) {
+                found = true;
+                foundIndex = i;
+            }
+        }
+        if(found) {
+            //find item in list
+            for(int i = 0; i<toDoListGroup.get(0).list.size(); i++) {
+                //call removeItem with selected ToDoList and ToDoListItem
+                if(ToDoListManagerController.listTreeTable.getSelectionModel().getModelItem(foundIndex).equals(toDoListGroup.get(0).getItem(i))) {
+                    toDoListGroup.get(0).removeItem(toDoListGroup.get(0).getItem(i));
+                    break;
+                }
+            }
             //call updateViews
+            updateViews();
+        }
         //if not do nothing
     }
 
@@ -121,7 +124,15 @@ public class ToDoListModel {
     }
 
     public void editItem() {
+        boolean found = false;
+        int foundIndex = 0;
         //check to see if a ToDoListItem is selected
+        for(int i=0; i<ToDoListManagerController.listTreeTable.getExpandedItemCount(); i++) {
+            if(ToDoListManagerController.listTreeTable.getSelectionModel().isSelected(i)) {
+                found = true;
+                foundIndex = i;
+            }
+        }
             //bring up edit popup window that displays ToDoListItem variables in editable fields loaded with existing data
             //call editItemValues using selected ToDoList and ToDoListItem, use two strings from edit window as params
             //call updateViews
@@ -134,10 +145,28 @@ public class ToDoListModel {
     }
 
     public void completeToggle() {
+        boolean found = false;
+        int foundIndex = 0;
         //check to see if a ToDoListItem is selected
-            //call completeTogglePass using selected ToDoList and ToDoListItem
+        for(int i=0; i<ToDoListManagerController.listTreeTable.getExpandedItemCount(); i++) {
+            if(ToDoListManagerController.listTreeTable.getSelectionModel().isSelected(i)) {
+                found = true;
+                foundIndex = i;
+            }
+        }
+        if(found) {
+            //find item in list
+            for(int i = 0; i<toDoListGroup.get(0).list.size(); i++) {
+                //call toggleComplete with selected ToDoListItem
+                if(ToDoListManagerController.listTreeTable.getSelectionModel().getModelItem(foundIndex).equals(toDoListGroup.get(0).getItem(i))) {
+                    toDoListGroup.get(0).list.get(i).toggleComplete();
+                    break;
+                }
+            }
             //call updateViews
-        //if not do nothing
+            updateViews();
+        }
+        //call toggleComplete using selected ToDoListItem
     }
 
     private void completeTogglePass(ToDoListItem li) {
@@ -161,27 +190,26 @@ public class ToDoListModel {
     }
 
     public void updateFilter() {
-        //change the filter variable to match the selected filter
-        //call changeFilter with selectedToggleGroup Property
+        //change the filter variable to represent the selected filter
+        if(ToDoListManagerController.showAllFilter.isSelected()) {
+            changeFilter("show all");
+        } else if(ToDoListManagerController.showDoneFilter.isSelected()) {
+            changeFilter("show done");
+        } else if(ToDoListManagerController.showNotDoneFilter.isSelected()) {
+            changeFilter("show not done");
+        }
     }
 
-    private void changeFilter(Property p) {
-        //switch(p)
-            //showall: set filter to SHOWALL
-            //shownotdone: set filter to SHOWNOTDONE
-            //showdone: set filter to SHOWDONE
+    private void changeFilter(String p) {
+        //set filter to p
+        this.filter = p;
     }
 
     private void updateTable(ToDoList l) {
-        //set toDoListView to l
-    }
-
-    public void save() {
-        //bring up popup to ask for which ToDoList to save
-        //ask for String to name the file
-        //overwrite or create file
-        //print selected ToDoList's toString to file
-        //close file
+        //create puppet list in accordance with the Filters
+        //create temporary root
+        //iterate list adding each item to table view
+        //set tableview to root
     }
 
     public void saveAll() {
@@ -195,8 +223,12 @@ public class ToDoListModel {
     private String getBigString() {
         String string = "";
         //iterate through toDoListGroup
+        for(ToDoList l : toDoListGroup) {
             //append ToDoList toStrings to string
+            string += l.toString();
             //append \n after each ToDoList
+            string += "\n";
+        }
         return string;
     }
 
@@ -217,6 +249,31 @@ public class ToDoListModel {
         return obj;
     }
 
+    //replace current ToDoList with new one
+
+
+
+    /*
+    removed in second part
+    public void addList() {
+        //bring up popup window with string input box
+        //call appendList with string
+        //call updateViews
+    }
+    private void appendList(String s) {
+        //add ToDoList object with title s to toDoListGroup
+        this.toDoListGroup.add(new ToDoList(s));
+    }
+    public void removeList() {
+        //check to see if a ToDoList is selected
+            //bring up alert confirmation dialog
+            //call removeObjectFromList with selected ToDoList
+            //call updateViews
+        //if not do nothing
+    }
+    private void updateList(Collection<ToDoList> c) {
+        //set listTreeTable to c
+    }
     public void loadCollection() {
         //bring up popup to ask for a filename
         //search for file
@@ -226,19 +283,24 @@ public class ToDoListModel {
             //call addCollection using parsedCollection and toDoListGroup to add parsed Collection to toDoListGroup
         //else do nothing
     }
-
-    //redo to replace current collection
-    public ArrayList<ToDoList> addCollection(ArrayList<ToDoList> c1, ArrayList<ToDoList> c2) {
-        ArrayList<ToDoList> temp = null;
-        //set temp to c1.add(c2)
-        return temp;
-    }
-    
     private Collection<ToDoList> parseFileCollection(File file) {
         Collection<ToDoList> temp = null;
         //have a parsing method here to create ToDoList objects with every line of file
         //store each object into temp collection
         return temp;
     }
-    
+    public ArrayList<ToDoList> addCollection(ArrayList<ToDoList> c1, ArrayList<ToDoList> c2) {
+        ArrayList<ToDoList> temp = null;
+        //set temp to c1.add(c2)
+        return temp;
+    }
+    public void save() {
+        //bring up popup to ask for which ToDoList to save
+        //ask for String to name the file
+        //overwrite or create file
+        //print selected ToDoList's toString to file
+        //close file
+    }
+
+    */
 }

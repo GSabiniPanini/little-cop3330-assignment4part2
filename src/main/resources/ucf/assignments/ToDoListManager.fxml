@@ -35,13 +35,13 @@
                 </Menu>
                 <Menu fx:id="filterMenu" mnemonicParsing="false" text="Filter">
                     <items>
-                        <RadioMenuItem fx:id="showAllFilter" mnemonicParsing="false" onAction="#showAllFilterClicked" selected="true" text="Show All">
+                        <RadioMenuItem id="showall" fx:id="showAllFilter" mnemonicParsing="false" onAction="#showAllFilterClicked" selected="true" text="Show All">
                             <toggleGroup>
                                 <ToggleGroup fx:id="filterToggleGroup" />
                             </toggleGroup>
                         </RadioMenuItem>
-                        <RadioMenuItem fx:id="showDoneFilter" mnemonicParsing="false" onAction="#showDoneFilterClicked" text="Only Show Done" toggleGroup="$filterToggleGroup" />
-                        <RadioMenuItem fx:id="showNotDoneFilter" mnemonicParsing="false" onAction="#showNotDoneFilterClicked" text="Only Show Incomplete" toggleGroup="$filterToggleGroup" />
+                        <RadioMenuItem id="showdone" fx:id="showDoneFilter" mnemonicParsing="false" onAction="#showDoneFilterClicked" text="Only Show Done" toggleGroup="$filterToggleGroup" />
+                        <RadioMenuItem id="shownotdone" fx:id="showNotDoneFilter" mnemonicParsing="false" onAction="#showNotDoneFilterClicked" text="Only Show Incomplete" toggleGroup="$filterToggleGroup" />
                     </items>
                 </Menu>
             </menus>
@@ -62,12 +62,12 @@
                 <ListView fx:id="toDoListView" minHeight="30.0" minWidth="159.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="SOMETIMES" />
                 <HBox alignment="BOTTOM_RIGHT" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="2147483647">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#addListButtonClicked" prefHeight="25.0" prefWidth="60.0" text="Add List" textAlignment="CENTER" HBox.hgrow="NEVER">
+                        <Button disable="true" mnemonicParsing="false" onAction="#addListButtonClicked" prefHeight="25.0" prefWidth="60.0" text="Add List" textAlignment="CENTER" HBox.hgrow="NEVER">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#removeListButtonClicked" prefHeight="25.0" prefWidth="80.0" text="Remove List" HBox.hgrow="NEVER" />
+                        <Button disable="true" mnemonicParsing="false" onAction="#removeListButtonClicked" prefHeight="25.0" prefWidth="80.0" text="Remove List" HBox.hgrow="NEVER" />
                         <Button mnemonicParsing="false" onAction="#renameListButtonClicked" prefHeight="25.0" prefWidth="80.0" text="Rename List" textAlignment="CENTER" HBox.hgrow="NEVER">
                             <opaqueInsets>
                                 <Insets />

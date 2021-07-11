@@ -10,7 +10,7 @@ import java.util.*;
 
 public class ToDoList {
     private SimpleStringProperty title;
-    private ArrayList<ToDoListItem> list;
+    public ArrayList<ToDoListItem> list;
 
     public ToDoList(String name) {
         //set ToDoList title to name
@@ -27,6 +27,10 @@ public class ToDoList {
     public void setTitle(String s) {
         //set ToDoList title to s
         this.title = new SimpleStringProperty(s);
+    }
+
+    public ToDoListItem getItem(int index) {
+        return list.get(index);
     }
 
     public void addItem(String s1, String s2) {
