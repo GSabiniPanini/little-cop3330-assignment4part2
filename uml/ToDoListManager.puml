@@ -1,0 +1,123 @@
+@startuml
+'https://plantuml.com/class-diagram'
+
+class ToDoListManager {
+    main()
+    start()
+}
+
+enum Filter {
+    SHOWALL
+    SHOWDONE
+    SHOWNOTDONE
+}
+
+class ToDoListManagerController {
+    + model: ToDoListModel
+    + toDoListView: ListView<ToDoList>
+    + listTreeTable: TreeTableView<ToDoListItem>
+
+    - addListButtonClicked(): void
+    - removeListButtonClicked(): void
+    - renameListButtonClicked(): void
+
+    - addItemButtonClicked(): void
+    - removeItemButtonClicked(): void
+    - editItemButtonClicked(): void
+    - markCompleteButtonClicked(): void
+
+    - showAllFilterClicked(): void
+    - showDoneFilterClicked(): void
+    - showNotDoneFilterClicked(): void
+
+    - menuSaveListClicked(): void
+    - menuSaveAllClicked(): void
+    - menuLoadListClicked(): void
+    - menuLoadCollectionClicked(): void
+    - sortButtonClicked(): void
+}
+
+class ToDoListModel {
+    - toDoListGroup : Collection<ToDoList>
+    + filter: enum Filter
+
+    <<constructor>> ToDoListModel()
+
+    + addList(): void
+    - appendList(String): void
+    + removeList(): void
+    - removeObjectFromList(ToDoList): void
+    + renameList(): void
+    - changeListName(ToDoList, String): void
+
+    + addItem(): void
+    - addItemToList(ToDoList, String, String): void
+    + removeItem(): void
+    - removeItemFromList(ToDoList, ToDoListItem): void
+    + editItem(): void
+    - editItemValues(ToDoList, ToDoListItem, String, String): void
+    + completeToggle(): void
+    - completeTogglePass(ToDoList, ToDoListItem): void
+
+    + sort(): void
+    - sortList(ToDoList): void
+
+    + updateViews(): void
+    + updateFilter(): void
+    - changeFilter(Property): void
+    - updateTable(ToDoList): void
+    - updateList(Collection<ToDoList>): void
+
+    + save(): void
+    + saveAll(): void
+    - getBigString(): void
+
+    + load(): void
+    - parseFile(File): ToDoList
+    + loadCollection(): void
+    + addCollection(Collection<ToDoList>, Collection<ToDoList>): Collection<ToDoList>
+    - parseFileCollection(File): Collection<ToDoList>
+}
+
+class ToDoList {
+    - title: SimpleStringProperty
+    - list: Collection<ToDoListItem>
+
+    <<constructor>> ToDoList(String)
+
+    + getTitle(): String
+    + setTitle(String): void
+
+    + addItem(String, String): void
+    + removeItem(ToDoListItem): void
+    + editItem(ToDoListItem, String, String): void
+
+    + sortItemList(ToDoListCollection): void
+
+    + toString(): String
+}
+
+class ToDoListItem {
+    - description: SimpleStringProperty
+    - date: LocalDate
+    - complete: boolean
+
+    <<constructor>> ToDoListItem (String, String)
+
+    + updateItem(String, String): void
+    + updateDescription(String): void
+    + updateDate(String): void
+    + toggleComplete(): void
+
+    + getDescription(): String
+    + getDate(): String
+    + toString(): String
+}
+
+javafx.Application <|-- ToDoListManager
+ToDoListManager - ToDoListManagerController
+ToDoListManagerController *--> ToDoListModel
+ToDoListModel *-> ToDoList
+ToDoList *-> ToDoListItem
+
+@enduml
