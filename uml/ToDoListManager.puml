@@ -6,19 +6,21 @@ class ToDoListManager {
     start()
 }
 
-enum Filter {
-    SHOWALL
-    SHOWDONE
-    SHOWNOTDONE
-}
-
 class ToDoListManagerController {
-    + model: ToDoListModel
+    + filterMenu: Menu
+    + filterToggleGroup: ToggleGroup
+    + showAllFilter: RadioMenuItem
+    + showDoneFilter: RadioMenuItem
+    + showNotDoneFilter: RadioMenuItem
     + toDoListView: ListView<ToDoList>
     + listTreeTable: TreeTableView<ToDoListItem>
+    - model: ToDoListModel
+    - doneColumn: TreeTableColumn<ToDoListItem, Boolean>
+    - descriptionColumn: TreeTableColumn<ToDoListItem, String>
+    - dateColumn: TreeTableColumn<ToDoListItem, String>
 
-    - addListButtonClicked(): void
-    - removeListButtonClicked(): void
+    + initialize()
+
     - renameListButtonClicked(): void
 
     - addItemButtonClicked(): void
@@ -29,80 +31,93 @@ class ToDoListManagerController {
     - showAllFilterClicked(): void
     - showDoneFilterClicked(): void
     - showNotDoneFilterClicked(): void
+    - sortButtonClicked(): void
 
-    - menuSaveListClicked(): void
     - menuSaveAllClicked(): void
     - menuLoadListClicked(): void
-    - menuLoadCollectionClicked(): void
-    - sortButtonClicked(): void
+    - clearListButtonClicked(): void
 }
 
 class ToDoListModel {
-    - toDoListGroup : Collection<ToDoList>
-    + filter: enum Filter
+    + toDoListGroup : ArrayList<ToDoList>
+    - filter: String
 
     <<constructor>> ToDoListModel()
 
-    + addList(): void
-    - appendList(String): void
-    + removeList(): void
-    - removeObjectFromList(ToDoList): void
-    + renameList(): void
-    - changeListName(ToDoList, String): void
 
     + addItem(): void
+    + renameList(): void
+    - changeListName(ToDoList, String): void
     - addItemToList(ToDoList, String, String): void
     + removeItem(): void
-    - removeItemFromList(ToDoList, ToDoListItem): void
-    + editItem(): void
-    - editItemValues(ToDoList, ToDoListItem, String, String): void
+    - removeItemFromList(ToDoListItem): void
     + completeToggle(): void
-    - completeTogglePass(ToDoList, ToDoListItem): void
-
+    - completeTogglePass(ToDoListItem): void
     + sort(): void
-    - sortList(ToDoList): void
-
     + updateViews(): void
     + updateFilter(): void
-    - changeFilter(Property): void
-    - updateTable(ToDoList): void
-    - updateList(Collection<ToDoList>): void
-
-    + save(): void
+    + changeFilter(String): void
+    + getFilter(): String
+    + getBigString(): String
     + saveAll(): void
-    - getBigString(): void
-
     + load(): void
-    - parseFile(File): ToDoList
-    + loadCollection(): void
-    + addCollection(Collection<ToDoList>, Collection<ToDoList>): Collection<ToDoList>
-    - parseFileCollection(File): Collection<ToDoList>
+    + clearList(): void
+    + replaceList(ToDoList): void
+    - updateTable(ToDoList): void
+    + editItem(): void
+    - editItemValues(ToDoListItem, String, String): void
+}
+
+class SortByDateComparator {
+    + compare(ToDoListItem, ToDoListItem): int
+}
+
+class RenameListPopupController {
+    + nameField: TextField
+
+    confirmButtonPressed(): void
+}
+
+class NewItemPopupController {
+    + dateField: TextField
+    + descriptionField: TextArea
+
+    cancelButtonPressed(): void
+    confirmButtonPressed(): void
+}
+
+class FileNamePopupController {
+    + fileNameField: TextField
+
+    confirmButtonPressed(): void
 }
 
 class ToDoList {
     - title: SimpleStringProperty
-    - list: Collection<ToDoListItem>
+    - list: ArrayList<ToDoListItem>
 
     <<constructor>> ToDoList(String)
+    <<constructor>> ToDoList(String, String, String)
 
     + getTitle(): String
     + setTitle(String): void
 
+    + getItem(int): ToDoListItem
     + addItem(String, String): void
+    + addItem(String, String, String): void
     + removeItem(ToDoListItem): void
     + editItem(ToDoListItem, String, String): void
-
-    + sortItemList(ToDoListCollection): void
-
+    + sortItemList(): void
     + toString(): String
 }
 
 class ToDoListItem {
     - description: SimpleStringProperty
-    - date: LocalDate
+    - date: String
     - complete: boolean
 
     <<constructor>> ToDoListItem (String, String)
+    <<constructor>> ToDoListItem (String, String, String)
 
     + updateItem(String, String): void
     + updateDescription(String): void
@@ -111,6 +126,7 @@ class ToDoListItem {
 
     + getDescription(): String
     + getDate(): String
+    + getStatus(): boolean
     + toString(): String
 }
 
@@ -118,6 +134,10 @@ javafx.Application <|-- ToDoListManager
 ToDoListManager - ToDoListManagerController
 ToDoListManagerController *--> ToDoListModel
 ToDoListModel *-> ToDoList
+ToDoListModel *-> SortByDateComparator
+ToDoListModel -- RenameListPopupController
+ToDoListModel -- NewItemPopupController
+ToDoListModel -- FileNamePopupController
 ToDoList *-> ToDoListItem
 
 @enduml

@@ -95,7 +95,7 @@
             <children>
                 <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="2147483647">
                     <children>
-                  <Button mnemonicParsing="false" onAction="#markCompleteButtonClicked" text="Mark Complete" />
+                  <Button mnemonicParsing="false" onAction="#markCompleteButtonClicked" text="Toggle Complete" />
                   <Button mnemonicParsing="false" onAction="#sortButtonClicked" text="Sort" />
                         <Button mnemonicParsing="false" onAction="#editItemButtonClicked" prefHeight="25.0" prefWidth="80.0" text="Edit Item" HBox.hgrow="NEVER" />
                     </children>
