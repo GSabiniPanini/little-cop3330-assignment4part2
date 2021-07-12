@@ -121,10 +121,12 @@ class ToDoListManagerControllerTest {
     @Test
     void can_edit_list_item_due_date() {
         //initialize ToDoListModel
-        //populate ToDoListGroup with one ToDoList
-        //populate ToDoList with one ToDoListItem
-        //call updateDate using expected String
+        ToDoListModel test = new ToDoListModel();
+        //call updateDate on ToDoListItem
+        test.toDoListGroup.get(0).list.get(0).updateDescription("2002-01-14");
         //assert ToDoListItem has expected String as date
+        String actual = test.toDoListGroup.get(0).list.get(0).getDate();
+        assertEquals(actual, "2002-01-14");
     }
 
     @Test
