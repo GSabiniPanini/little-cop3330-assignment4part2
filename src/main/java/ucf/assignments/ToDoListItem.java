@@ -81,6 +81,11 @@ public class ToDoListItem {
         return this.date;
     }
 
+    public boolean getStatus() {
+        //return complete
+        return this.complete;
+    }
+
     public String toString() {
         //append description and date *and complete* to string using a particular format
         String string = (getDate() + " " + getDescription() + " " + complete);

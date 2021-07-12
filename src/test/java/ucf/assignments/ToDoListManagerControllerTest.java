@@ -132,10 +132,12 @@ class ToDoListManagerControllerTest {
     @Test
     void can_mark_list_item_complete() {
         //initialize ToDoListModel
-        //populate ToDoListGroup with one ToDoList
-        //populate ToDoList with one ToDoListItem
+        ToDoListModel test = new ToDoListModel();
         //call toggleComplete on ToDoListItem
+        test.toDoListGroup.get(0).list.get(0).toggleComplete();
         //assert ToDoListItem.complete is true
+        boolean actual = test.toDoListGroup.get(0).list.get(0).getStatus();
+        assertEquals(actual, true);
     }
 
     @Test
