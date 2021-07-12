@@ -5,17 +5,15 @@
 
 package ucf.assignments;
 
-import javafx.beans.property.Property;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 /* not necessary i think
 enum Filter { }
@@ -34,7 +32,6 @@ public class ToDoListModel {
         this.toDoListGroup = new ArrayList<ToDoList>();
         this.toDoListGroup.add(new ToDoList("name"));
     }
-
 
     private void removeObjectFromList(ToDoList l) {
         //remove ToDoList object l from toDoListGroup
@@ -123,22 +120,6 @@ public class ToDoListModel {
         l.removeItem(li);
     }
 
-    public void editItem() {
-        boolean found = false;
-        int foundIndex = 0;
-        //check to see if a ToDoListItem is selected
-        for(int i=0; i<ToDoListManagerController.listTreeTable.getExpandedItemCount(); i++) {
-            if(ToDoListManagerController.listTreeTable.getSelectionModel().isSelected(i)) {
-                found = true;
-                foundIndex = i;
-            }
-        }
-            //bring up edit popup window that displays ToDoListItem variables in editable fields loaded with existing data
-            //call editItemValues using selected ToDoList and ToDoListItem, use two strings from edit window as params
-            //call updateViews
-        //if not do nothing
-    }
-
     private void editItemValues(ToDoList l, ToDoListItem li, String s1, String s2) {
         //call ToDoList.editItem using l, li, s1, and s2
         l.editItem(li, s1, s2);
@@ -159,14 +140,13 @@ public class ToDoListModel {
             for(int i = 0; i<toDoListGroup.get(0).list.size(); i++) {
                 //call toggleComplete with selected ToDoListItem
                 if(ToDoListManagerController.listTreeTable.getSelectionModel().getModelItem(foundIndex).equals(toDoListGroup.get(0).getItem(i))) {
-                    toDoListGroup.get(0).list.get(i).toggleComplete();
+                    completeTogglePass(toDoListGroup.get(0).list.get(i));
                     break;
                 }
             }
             //call updateViews
             updateViews();
         }
-        //call toggleComplete using selected ToDoListItem
     }
 
     private void completeTogglePass(ToDoListItem li) {
@@ -205,6 +185,85 @@ public class ToDoListModel {
         this.filter = p;
     }
 
+    private String getBigString() {
+        String string = (String) (toDoListGroup.get(0).getTitle() + " ");
+        //get toString of toDoListGroup.get(0)
+        for(int i=0; i<toDoListGroup.size(); i++) {
+            string += toDoListGroup.get(0).getItem(i).toString();
+            //append \n after each ToDoList
+            string += "\n";
+        }
+
+        return string;
+    }
+
+    public void saveAll() {
+        //bring up popup to ask for file name
+        try {
+            Parent fileNameRoot = FXMLLoader.load(getClass().getResource("FileNamePopup.fxml"));
+            Scene fileNamePopup = new Scene(fileNameRoot);
+            Stage popup = null;
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setScene(fileNamePopup);
+            popup.setTitle("Enter a Full File Path");
+            popup.showAndWait();
+
+            //overwrite or create file
+            try(Formatter output = new Formatter(FileNamePopupController.fileNameField.getText())) {
+                //call getBigString to get compiled string and print string to file
+                output.format("%s", getBigString());
+            } catch (SecurityException | FormatterClosedException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load() {
+        //bring up popup to ask for a filename
+        try {
+            Parent fileNameRoot = FXMLLoader.load(getClass().getResource("FileNamePopup.fxml"));
+            Scene fileNamePopup = new Scene(fileNameRoot);
+            Stage popup = null;
+            popup.initModality(Modality.APPLICATION_MODAL);
+            popup.setScene(fileNamePopup);
+            popup.setTitle("Enter a Full File Path");
+            popup.showAndWait();
+
+            //search for file
+            try {
+                Path dir = Paths.get(FileNamePopupController.fileNameField.getText());
+                Scanner in = new Scanner(dir);
+
+                String title = in.next();
+                int count = 0;
+
+                ToDoList newlist = new ToDoList(title, in.next(), in.next());
+                while(in.hasNextLine()) {
+                    String date = in.next().trim().replace("\n", "");
+                    String desc = in.next().trim();
+                    String bool = in.next().trim().replace("\n", "");
+                    newlist.addItem(date, desc, bool);
+                }
+
+                //call replaceList to set list as the main list
+                replaceList(newlist);
+            } catch (SecurityException | FormatterClosedException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException | NoSuchElementException | IllegalStateException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    //replace current ToDoList with new one
+    public void replaceList(ToDoList l) {
+        this.toDoListGroup.set(0, l);
+    }
+
     private void updateTable(ToDoList l) {
         //create puppet list in accordance with the Filters
         //create temporary root
@@ -212,44 +271,21 @@ public class ToDoListModel {
         //set tableview to root
     }
 
-    public void saveAll() {
-        //bring up popup to ask for file name
-        //overwrite or create file
-        //call getBigString to get compiled string
-        //print string to file
-        //close file
-    }
-
-    private String getBigString() {
-        String string = "";
-        //iterate through toDoListGroup
-        for(ToDoList l : toDoListGroup) {
-            //append ToDoList toStrings to string
-            string += l.toString();
-            //append \n after each ToDoList
-            string += "\n";
+    public void editItem() {
+        boolean found = false;
+        int foundIndex = 0;
+        //check to see if a ToDoListItem is selected
+        for(int i=0; i<ToDoListManagerController.listTreeTable.getExpandedItemCount(); i++) {
+            if(ToDoListManagerController.listTreeTable.getSelectionModel().isSelected(i)) {
+                found = true;
+                foundIndex = i;
+            }
         }
-        return string;
+        //bring up edit popup window that displays ToDoListItem variables in editable fields loaded with existing data
+        //call editItemValues using selected ToDoList and ToDoListItem, use two strings from edit window as params
+        //call updateViews
+        //if not do nothing
     }
-
-    public void load() {
-        //bring up popup to ask for a filename
-        //search for file
-        //if found
-            //call parseFile using file to get a ToDoList
-            //close file
-            //call addList to add ToDoList object to toDoListGroup
-        //else do nothing
-    }
-
-    private ToDoList parseFile(File file) {
-        ToDoList obj = null;
-        //have a parsing method here to create a ToDoList object out of the line of text in the file
-        //store the ToDoList in obj
-        return obj;
-    }
-
-    //replace current ToDoList with new one
 
 
 

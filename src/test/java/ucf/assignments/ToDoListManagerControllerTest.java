@@ -11,12 +11,28 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ToDoListManagerControllerTest {
 
+    /* removed in part 2
     @Test
     void can_add_new_list() {
         //initialize ToDoList Model
         //create empty toDoListGroup
         //call appendList with expected title string
         //assert toDoListGroup collection has ToDoList with expected title
+    }
+    */
+    @Test
+    void can_initialize_list_of_items() {
+        //initialize ToDoListModel
+        ToDoListModel test = new ToDoListModel();
+        //loop to add 99 more items to todolistgroup
+        for(int i=1;i<100; i++) {
+            test.toDoListGroup.get(0).addItem("2000-10-10", "name" + (i+1));
+        }
+        //set expected to given name for 100th item
+        String expected = "name100";
+        //set actual to name of 100th item
+        String actual = test.toDoListGroup.get(0).getItem(99).getDescription();
+        assertEquals(expected, actual);
     }
 
     @Test

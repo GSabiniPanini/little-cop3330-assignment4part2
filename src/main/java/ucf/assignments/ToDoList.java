@@ -10,13 +10,18 @@ import java.util.*;
 
 public class ToDoList {
     private SimpleStringProperty title;
-    public ArrayList<ToDoListItem> list;
+    public ArrayList<ToDoListItem> list = new ArrayList<>();
 
     public ToDoList(String name) {
         //set ToDoList title to name
         setTitle(name);
         //set list to empty list
-        addItem("Description", "2002-01-14");
+        addItem("2002-01-14", "Description");
+    }
+
+    public ToDoList(String name, String date, String desc) {
+        setTitle(name);
+        addItem(date, desc);
     }
 
     public String getTitle() {
@@ -36,6 +41,10 @@ public class ToDoList {
     public void addItem(String s1, String s2) {
         //add new ToDoListItem object to list using s1 and s2
         this.list.add(new ToDoListItem(s1, s2));
+    }
+
+    public void addItem(String s1, String s2, String s3) {
+        this.list.add(new ToDoListItem(s1, s2, s3));
     }
 
     public void removeItem(ToDoListItem li) {
@@ -64,5 +73,4 @@ public class ToDoList {
         }
         return string;
     }
-
 }

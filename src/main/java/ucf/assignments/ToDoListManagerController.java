@@ -27,7 +27,7 @@ public class ToDoListManagerController {
     @FXML public static RadioMenuItem showDoneFilter;
     @FXML public static RadioMenuItem showNotDoneFilter;
     @FXML private GridPane leftGridPane;
-    @FXML public static ListView<ToDoList> toDoListView;
+    @FXML public static ListView<ToDoList> toDoListView = new ListView<>();
     @FXML private GridPane rightGridPane;
     @FXML public static TreeTableView<ToDoListItem> listTreeTable;
     @FXML private TreeTableColumn<ToDoListItem, Boolean> doneColumn;

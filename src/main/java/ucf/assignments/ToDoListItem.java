@@ -22,6 +22,16 @@ public class ToDoListItem {
         this.complete = false;
     }
 
+    public ToDoListItem(String s1, String s2, String s3) {
+        updateDate(s1);
+        updateDescription(s2);
+        if(s3.equals("true")) {
+            this.complete = true;
+        } else {
+            this.complete = false;
+        }
+    }
+
     public void updateItem(String s1, String s2) {
         //call updateDate using s1
         updateDate(s1);
@@ -60,7 +70,7 @@ public class ToDoListItem {
 
     public String getDescription() {
         //return the description
-        return this.description.toString();
+        return this.description.get();
     }
 
     public String getDate() {
@@ -70,7 +80,7 @@ public class ToDoListItem {
 
     public String toString() {
         //append description and date *and complete* to string using a particular format
-        String string = ("desc=" + getDescription() + " date=" + getDate() + " status=" + complete);
+        String string = (getDate() + " " + getDescription() + " " + complete);
         return string;
     }
 }

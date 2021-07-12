@@ -27,10 +27,10 @@
             <menus>
                 <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#menuSaveListClicked" text="Save List" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Save List" />
                         <MenuItem mnemonicParsing="false" onAction="#menuSaveAllClicked" text="Save All to Collection" />
                         <MenuItem mnemonicParsing="false" onAction="#menuLoadListClicked" text="Load List" />
-                        <MenuItem mnemonicParsing="false" onAction="#menuLoadCollectionClicked" text="Load List Collection" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Load List Collection" />
                     </items>
                 </Menu>
                 <Menu fx:id="filterMenu" mnemonicParsing="false" text="Filter">
@@ -62,12 +62,12 @@
                 <ListView fx:id="toDoListView" minHeight="30.0" minWidth="159.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="SOMETIMES" />
                 <HBox alignment="BOTTOM_RIGHT" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="2147483647">
                     <children>
-                        <Button disable="true" mnemonicParsing="false" onAction="#addListButtonClicked" prefHeight="25.0" prefWidth="60.0" text="Add List" textAlignment="CENTER" HBox.hgrow="NEVER">
+                        <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Add List" textAlignment="CENTER" HBox.hgrow="NEVER">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
                         </Button>
-                        <Button disable="true" mnemonicParsing="false" onAction="#removeListButtonClicked" prefHeight="25.0" prefWidth="80.0" text="Remove List" HBox.hgrow="NEVER" />
+                        <Button disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Remove List" HBox.hgrow="NEVER" />
                         <Button mnemonicParsing="false" onAction="#renameListButtonClicked" prefHeight="25.0" prefWidth="80.0" text="Rename List" textAlignment="CENTER" HBox.hgrow="NEVER">
                             <opaqueInsets>
                                 <Insets />
