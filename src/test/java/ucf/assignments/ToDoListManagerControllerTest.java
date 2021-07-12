@@ -7,6 +7,11 @@ package ucf.assignments;
 
 import org.junit.jupiter.api.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ToDoListManagerControllerTest {
@@ -19,12 +24,19 @@ class ToDoListManagerControllerTest {
         //call appendList with expected title string
         //assert toDoListGroup collection has ToDoList with expected title
     }
+    @Test
+    void can_remove_list() {
+        //initialize ToDoList Model
+        //create toDoListGroup populated with some number of ToDoList
+        //call removeObjectFromList with one of the ToDoList objects
+        //assert toDoListGroup collection properly removed the object
+    }
     */
     @Test
-    void can_initialize_list_of_items() {
+    void can_initialize_100_items() {
         //initialize ToDoListModel
         ToDoListModel test = new ToDoListModel();
-        //loop to add 99 more items to todolistgroup
+        //loop to add 99 more items to todolistgroup.get(0)
         for(int i=1;i<100; i++) {
             test.toDoListGroup.get(0).addItem("2000-10-10", "name" + (i+1));
         }
@@ -36,27 +48,27 @@ class ToDoListManagerControllerTest {
     }
 
     @Test
-    void can_remove_list() {
-        //initialize ToDoList Model
-        //create toDoListGroup populated with some number of ToDoList
-        //call removeObjectFromList with one of the ToDoList objects
-        //assert toDoListGroup collection properly removed the object
-    }
-
-    @Test
-    void can_rename_list() {
-        //initialize ToDoList Model
-        //create toDoListGroup populated with one ToDoList
-        //call changeListName using the just created ToDoList and an expected title
-        //assert toDoListGroup has only one ToDoList with expected title
-    }
-
-    @Test
-    void can_add_list_item() {
+    void item_has_description() {
         //initialize ToDoListModel
-        //populate toDoListGroup with one ToDoList
-        //call addItemToList with created ToDoList and two expected strings
-        //assert toDoList has ToDoListItem with expected strings
+        ToDoListModel test = new ToDoListModel();
+        //set expected to default description
+        String expected = "Description";
+        //set actual to description of item
+        String actual = test.toDoListGroup.get(0).getItem(0).getDescription();
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void item_has_due_date() {
+        //initialize ToDoListModel
+        ToDoListModel test = new ToDoListModel();
+        //set toDoListGroup.get(0)'s date to 2002-01-14
+        test.toDoListGroup.get(0).getItem(0).updateDate("2002-01-14");
+        //assert 2002-01-14 = ToDoListItem date
+        String expected = "2002-01-14";
+
+        String actual = test.toDoListGroup.get(0).getItem(0).getDate();
+        assertEquals(actual, expected);
     }
 
     @Test

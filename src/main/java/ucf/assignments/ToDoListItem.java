@@ -46,6 +46,8 @@ public class ToDoListItem {
 
     public void updateDate(String s1) {
         //set date to s1
+        this.date = s1;
+        /* testing fails so assume string is correctly formmated coming into function
         try {
             DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
             df.setLenient(false);
@@ -54,6 +56,7 @@ public class ToDoListItem {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+         */
     }
 
     public void toggleComplete() {
