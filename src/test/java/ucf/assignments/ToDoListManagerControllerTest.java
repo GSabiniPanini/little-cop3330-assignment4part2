@@ -141,6 +141,18 @@ class ToDoListManagerControllerTest {
     }
 
     @Test
+    void can_mark_list_item_incomplete() {
+        //initialize ToDoListModel
+        ToDoListModel test = new ToDoListModel();
+        //call toggleComplete on ToDoListItem
+        test.toDoListGroup.get(0).list.get(0).toggleComplete();
+        test.toDoListGroup.get(0).list.get(0).toggleComplete();
+        //assert ToDoListItem.complete is true
+        boolean actual = test.toDoListGroup.get(0).list.get(0).getStatus();
+        assertEquals(actual, false);
+    }
+
+    @Test
     void can_change_filter_to_SHOWALL() {
         //initialize ToDoListModel
         //call changeFilter with SHOWALL
