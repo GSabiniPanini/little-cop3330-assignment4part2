@@ -96,6 +96,18 @@ class ToDoListManagerControllerTest {
     }
 
     @Test
+    void can_clear_list() {
+        //initialize ToDoListModel
+        ToDoListModel test = new ToDoListModel();
+        //populate ToDoList with 2 ToDoListItem
+        test.toDoListGroup.get(0).addItem("yyyy-mm-dd", "test");
+        //call clearList()
+        test.clearList();
+        //assert ToDoList contains 0 ToDoListItems
+        int actual = test.toDoListGroup.get(0).list.size();
+        assertTrue(actual==0);
+    }
+    @Test
     void can_edit_list_item_description() {
         //initialize ToDoListModel
         //populate toDoListGroup with one ToDoList

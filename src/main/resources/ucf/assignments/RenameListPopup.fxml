@@ -10,10 +10,10 @@
   ~ Copyright 2021 Glenroy Little
   -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="400.0" scaleShape="false" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.RenameListPopupController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="400.0" scaleShape="false" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.RenameListPopupController">
     <children>
-    <Label layoutX="113.0" layoutY="14.0" text="What will you rename the list to?" />
-      <TextField fx:id="nameField" alignment="CENTER" layoutX="126.0" layoutY="45.0" promptText="name" />
-      <Button layoutX="171.0" layoutY="81.0" mnemonicParsing="false" onAction="#confirmButtonPressed" text="Confirm" />
+    <Label layoutX="158.0" layoutY="14.0" text="Enter a File Path" />
+      <TextField fx:id="fileNameField" alignment="CENTER" layoutX="95.0" layoutY="43.0" prefHeight="25.0" prefWidth="210.0" promptText="filepath" />
+      <Button layoutX="171.0" layoutY="77.0" mnemonicParsing="false" onAction="#confirmButtonPressed" text="Confirm" />
     </children>
 </AnchorPane>

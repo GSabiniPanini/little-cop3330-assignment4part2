@@ -287,6 +287,10 @@ public class ToDoListModel {
         //if not do nothing
     }
 
+    public void clearList() {
+        toDoListGroup.get(0).list.clear();
+    }
+
 
 
     /*

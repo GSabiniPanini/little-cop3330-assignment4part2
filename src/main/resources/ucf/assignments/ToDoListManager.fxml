@@ -112,6 +112,7 @@
                 </TreeTableView>
                 <HBox alignment="TOP_RIGHT" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                     <children>
+                  <Button mnemonicParsing="false" onAction="#clearListButtonClicked" text="Clear List" />
                         <Button mnemonicParsing="false" onAction="#addItemButtonClicked" text="Add Item" />
                         <Button mnemonicParsing="false" onAction="#removeItemButtonClicked" text="Remove Item" />
                     </children>

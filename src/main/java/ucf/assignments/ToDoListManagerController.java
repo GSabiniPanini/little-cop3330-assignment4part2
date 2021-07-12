@@ -120,6 +120,12 @@ public class ToDoListManagerController {
         //call load
     }
 
+    @FXML
+    void clearListButtonClicked(ActionEvent event) {
+        //call clearList
+        model.clearList();
+    }
+
     /* removed in part 2
     @FXML
     void removeListButtonClicked(ActionEvent event) {
