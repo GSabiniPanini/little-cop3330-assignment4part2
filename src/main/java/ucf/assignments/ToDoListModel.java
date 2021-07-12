@@ -259,6 +259,10 @@ public class ToDoListModel {
 
     }
 
+    public void clearList() {
+        toDoListGroup.get(0).list.clear();
+    }
+
     //replace current ToDoList with new one
     public void replaceList(ToDoList l) {
         this.toDoListGroup.set(0, l);
@@ -286,12 +290,6 @@ public class ToDoListModel {
         //call updateViews
         //if not do nothing
     }
-
-    public void clearList() {
-        toDoListGroup.get(0).list.clear();
-    }
-
-
 
     /*
     removed in second part

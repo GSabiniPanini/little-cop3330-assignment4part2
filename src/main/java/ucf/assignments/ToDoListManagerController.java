@@ -68,56 +68,67 @@ public class ToDoListManagerController {
     @FXML
     void renameListButtonClicked(ActionEvent event) {
         //call renameList
+        model.renameList();
     }
 
     @FXML
     void addItemButtonClicked(ActionEvent event) {
         //call addItem
+        model.addItem();
     }
 
     @FXML
     void removeItemButtonClicked(ActionEvent event) {
         //call removeItem
+        model.removeItem();
     }
 
     @FXML
     void editItemButtonClicked(ActionEvent event) {
         //call editItem
+        model.editItem();
     }
 
     @FXML
     void markCompleteButtonClicked(ActionEvent event) {
         //call completeToggle
+        model.completeToggle();
     }
 
     @FXML
     void showAllFilterClicked(ActionEvent event) {
         //call updateFilter
+        model.updateFilter();
     }
 
     @FXML
     void showDoneFilterClicked(ActionEvent event) {
         //call updateFilter
+        model.updateFilter();
     }
 
     @FXML
     void showNotDoneFilterClicked(ActionEvent event) {
         //call updateFilter
+        model.updateFilter();
     }
 
     @FXML
     void sortButtonClicked(ActionEvent event) {
         //call sort
+        model.sort();
     }
 
     @FXML
     void menuSaveAllClicked(ActionEvent event) {
         //call saveAll
+        model.saveAll();
     }
 
     @FXML
     void menuLoadListClicked(ActionEvent event) {
         //call load
+        model.load();
     }
 
     @FXML
