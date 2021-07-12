@@ -203,10 +203,11 @@ class ToDoListManagerControllerTest {
     @Test
     void can_create_bigString_for_save_all_lists_to_file() {
         //initialize ToDoListModel
-        //populate toDoListGroup with at least one ToDoList
-        //populate ToDoList with at least one ToDoListItem
+        ToDoListModel test = new ToDoListModel();
         //call getBigString to get the big printable string
+        String actual = test.getBigString();
         //assert big printable string is equal to the expected string
+        assertEquals("name 2002-01-14 Description false\n", actual);
     }
 
     @Test

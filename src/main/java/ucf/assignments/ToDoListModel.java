@@ -185,7 +185,7 @@ public class ToDoListModel {
         return this.filter;
     }
 
-    private String getBigString() {
+    public String getBigString() {
         String string = (String) (toDoListGroup.get(0).getTitle() + " ");
         //get toString of toDoListGroup.get(0)
         for(int i=0; i<toDoListGroup.size(); i++) {

@@ -26,7 +26,7 @@ public class ToDoList {
 
     public String getTitle() {
         //return ToDoList title as string
-        return this.title.toString();
+        return this.title.get();
     }
 
     public void setTitle(String s) {
