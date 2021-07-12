@@ -28,6 +28,10 @@ Editing an Item
 Marking an Item Complete
   Click on an Item in the TableTreeView and click the "Toggle Complete" button on the top right
 
+How do You Sort the ItemList
+  If you want to sort the Item List all you have to do is hit the Sort button on the top right
+  If nothing happens try selecting the ToDoList on the Left side of the Screen then try again
+
 Changing the Filter
   On the Menu Bar in the Filter Menu at the top left, select the Filter you want to set the TableTreeView to
 
