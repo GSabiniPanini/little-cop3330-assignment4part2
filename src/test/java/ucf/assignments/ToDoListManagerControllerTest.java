@@ -213,9 +213,15 @@ class ToDoListManagerControllerTest {
     @Test
     void can_replace_current_collection_with_external_collection() {
         //initialize ToDoListModel
-        //create ToDoList test and populate it with any number of ToDoListItems
+        ToDoListModel test = new ToDoListModel();
+        //create ToDoList test2
+        ToDoList test2 = new ToDoList("test");
         //call replaceList using the test list
+        test.replaceList(test2);
+
         //assert that toDoListGroup now contains every element from the test ToDoList
+        String actual = test.toDoListGroup.get(0).getTitle();
+        assertEquals(actual, "test");
     }
 
     @Test
