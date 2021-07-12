@@ -4,10 +4,13 @@
 First may we say a prayer to Rey, for suggesting this brilliant idea. All praise Rey
 ~
 
-1. The application shall manage a single list of items
-2. Where to view the item
-    the ArrayList of ToDoListItems will be shown in the TreeTableView on the right side of the screen.
-    if nothing is visible, click the "Add Item" button on the bottom right and create a list
+What is the Box on the Left Side of the Screen?
+  the ListView on the left side of the screen was designed to accommodate multiple lists, as was requested in the first part.
+  The methods regarding multiple lists were modified to only handle a single list and the Buttons to Manage more Lists were disabled
+
+Where to View the Items
+  the ArrayList of ToDoListItems will be shown in the TreeTableView on the right side of the screen.
+  if nothing is visible, click the "Add Item" button on the bottom right and create a list
 
 Adding an Item
   Click the "Add Item" button on the bottom right and fill out the prompt
@@ -17,17 +20,16 @@ Removing an Item
   
 Clearing Item List
   Click the "Clear List" Button on the bottom right
-A user shall be able to edit the description of an item within the list
-A user shall be able to edit the due date of an item within the list
-A user shall be able to mark an item in the list as either complete or incomplete
-A user shall be able to display all of the existing items in the list
-A user shall be able to display only the incomplete items in the list
-A user shall be able to display only the completed items in the list
+  
+Editing an Item
+  Click on an Item in the TableTreeView and click the "Edit Item" button on the top right
+  The button will bring up a popup menu where you can enter a new Description and Due Date
+  
+Marking an Item Complete
+  Click on an Item in the TableTreeView and click the "Toggle Complete" button on the top right
 
-A user shall be able to save the list (and all of its items) to external storage
-A user shall be able to load a list (and all of its items) from external storage
+Changing the Filter
+  On the Menu Bar in the Filter Menu at the top left, select the Filter you want to set the TableTreeView to
 
-The developer shall provide a help screen with directions on how to use the application.
-The help screen shall describe how to execute each behavioral requirement provided by the application (e.g. add an item, remove an item, edit an item, etc)
-The help screen shall include a dedication to "Rey"
-This help screen shall be provided as either a dedicated window within the application, or a markdown file called `readme.md` on your GitHub repository for the project.)
+Saving and Loading Lists
+  On the Menu Bar in the File Menu at the top left, select whether you want to save the List or Load a list
