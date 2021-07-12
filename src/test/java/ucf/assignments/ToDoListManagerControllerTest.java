@@ -85,9 +85,14 @@ class ToDoListManagerControllerTest {
     @Test
     void can_remove_list_item() {
         //initialize ToDoListModel
+        ToDoListModel test = new ToDoListModel();
         //populate ToDoList with 2 ToDoListItem
-        //call removeItemFromList using any of the ToDoListItems
+        test.toDoListGroup.get(0).addItem("yyyy-mm-dd", "test");
+        //call removeItemFromList using any of the ToDoListItem
+        test.toDoListGroup.get(0).removeItem(test.toDoListGroup.get(0).list.get(1));
         //assert ToDoList contains 1 ToDoListItem
+        int actual = test.toDoListGroup.get(0).list.size();
+        assertTrue(actual==1);
     }
 
     @Test
