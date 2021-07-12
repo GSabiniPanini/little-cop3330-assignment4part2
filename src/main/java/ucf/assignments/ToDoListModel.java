@@ -8,6 +8,7 @@ package ucf.assignments;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TreeItem;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -105,7 +106,7 @@ public class ToDoListModel {
             for(int i = 0; i<toDoListGroup.get(0).list.size(); i++) {
                 //call removeItem with selected ToDoList and ToDoListItem
                 if(ToDoListManagerController.listTreeTable.getSelectionModel().getModelItem(foundIndex).equals(toDoListGroup.get(0).getItem(i))) {
-                    toDoListGroup.get(0).removeItem(toDoListGroup.get(0).getItem(i));
+                    removeItemFromList(toDoListGroup.get(0).getItem(i));
                     break;
                 }
             }
@@ -115,14 +116,9 @@ public class ToDoListModel {
         //if not do nothing
     }
 
-    private void removeItemFromList(ToDoList l, ToDoListItem li) {
+    private void removeItemFromList(ToDoListItem li) {
         //call ToDoList.removeItem using l and li
-        l.removeItem(li);
-    }
-
-    private void editItemValues(ToDoList l, ToDoListItem li, String s1, String s2) {
-        //call ToDoList.editItem using l, li, s1, and s2
-        l.editItem(li, s1, s2);
+        toDoListGroup.get(0).removeItem(li);
     }
 
     public void completeToggle() {
@@ -180,9 +176,13 @@ public class ToDoListModel {
         }
     }
 
-    private void changeFilter(String p) {
+    public void changeFilter(String p) {
         //set filter to p
         this.filter = p;
+    }
+
+    public String getFilter() {
+        return this.filter;
     }
 
     private String getBigString() {
@@ -271,7 +271,10 @@ public class ToDoListModel {
     private void updateTable(ToDoList l) {
         //create puppet list in accordance with the Filters
         //create temporary root
+        TreeItem<ToDoListItem> root = new TreeItem<ToDoListItem>(new ToDoListItem("yyyy-mm-dd", "Description"));
         //iterate list adding each item to table view
+        Iterator<ToDoListItem> iter = toDoListGroup.get(0).list.iterator();
+
         //set tableview to root
     }
 
@@ -289,6 +292,11 @@ public class ToDoListModel {
         //call editItemValues using selected ToDoList and ToDoListItem, use two strings from edit window as params
         //call updateViews
         //if not do nothing
+    }
+
+    private void editItemValues(ToDoListItem li, String s1, String s2) {
+        //call ToDoList.editItem using l, li, s1, and s2
+        toDoListGroup.get(0).editItem(li, s1, s2);
     }
 
     /*

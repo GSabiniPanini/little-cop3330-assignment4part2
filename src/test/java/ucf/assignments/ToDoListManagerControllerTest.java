@@ -31,6 +31,21 @@ class ToDoListManagerControllerTest {
         //call removeObjectFromList with one of the ToDoList objects
         //assert toDoListGroup collection properly removed the object
     }
+    @Test
+    void can_append_multiple_collections_to_current_collection() {
+        //initialize ToDoListModel
+        //create Collection<ToDoList> test and populate it with at least one ToDoList
+        //call addCollection using toDoListGroup and test
+        //assert that toDoListGroup now contains every element from test Collection
+    }
+    @Test
+    void can_create_string_for_save_list_to_file() {
+        //initialize ToDoListModel
+        //populate toDoListGroup with one ToDoList
+        //populate ToDoList with at least one ToDoListItem
+        //call ToDoList.toString to get the printable string
+        //assert printable string is equal to the expected string
+    }
     */
     @Test
     void can_initialize_100_items() {
@@ -153,42 +168,36 @@ class ToDoListManagerControllerTest {
     }
 
     @Test
-    void can_change_filter_to_SHOWALL() {
+    void can_change_filter_to_show_all() {
         //initialize ToDoListModel
-        //call changeFilter with SHOWALL
-        //assert that ToDoListModel.filter is equal to Filter.SHOWALL
+        ToDoListModel test = new ToDoListModel();
+        //call changeFilter with show all
+        test.changeFilter("show all");
+        //assert that ToDoListModel.filter is equal to show all
+        String actual = test.getFilter();
+        assertEquals(actual, "show all");
     }
 
     @Test
-    void can_change_filter_to_SHOWNOTDONE() {
+    void can_change_filter_to_show_not_done() {
         //initialize ToDoListModel
-        //call changeFilter with SHOWNOTDONE
-        //assert that ToDoListModel.filter is equal to Filter.SHOWNOTDONE
+        ToDoListModel test = new ToDoListModel();
+        //call changeFilter with show not done
+        test.changeFilter("show not done");
+        //assert that ToDoListModel.filter is equal to show not done
+        String actual = test.getFilter();
+        assertEquals(actual, "show not done");
     }
 
     @Test
-    void can_change_filter_to_SHOWDONE() {
+    void can_change_filter_to_show_done() {
         //initialize ToDoListModel
-        //call changeFilter with SHOWDONE
-        //assert that ToDoListModel.filter is equal to Filter.SHOWDONE
-    }
-
-    @Test
-    void can_sort_ToDoList() {
-        //initialize ToDoListModel
-        //populate toDoListGroup with one ToDoList
-        //populate ToDoList with at least two ToDoListItems
-        //call sortItemList using created ToDoList
-        //assert that ToDoList now has a sorted list of ToDoListItems
-    }
-
-    @Test
-    void can_create_string_for_save_list_to_file() {
-        //initialize ToDoListModel
-        //populate toDoListGroup with one ToDoList
-        //populate ToDoList with at least one ToDoListItem
-        //call ToDoList.toString to get the printable string
-        //assert printable string is equal to the expected string
+        ToDoListModel test = new ToDoListModel();
+        //call changeFilter with show done
+        test.changeFilter("show done");
+        //assert that ToDoListModel.filter is equal to show done
+        String actual = test.getFilter();
+        assertEquals(actual, "show done");
     }
 
     @Test
@@ -201,24 +210,19 @@ class ToDoListManagerControllerTest {
     }
 
     @Test
-    void can_append_external_collection_to_current_collection() {
+    void can_replace_current_collection_with_external_collection() {
         //initialize ToDoListModel
         //create ToDoList test and populate it with any number of ToDoListItems
-        //call addList using the test Object to add the test ToDoList to the toDoListGroup
+        //call replaceList using the test list
         //assert that toDoListGroup now contains every element from the test ToDoList
     }
 
     @Test
-    void can_append_multiple_collections_to_current_collection() {
+    void can_sort_ToDoList() {
         //initialize ToDoListModel
-        //create Collection<ToDoList> test and populate it with at least one ToDoList
-        //call addCollection using toDoListGroup and test
-        //assert that toDoListGroup now contains every element from test Collection
+        //populate ToDoList with 2 ToDoListItems
+        //call sortItemList using created ToDoList
+        //assert that ToDoList now has a sorted list of ToDoListItems
     }
-
-
-
-
-
 
 }
