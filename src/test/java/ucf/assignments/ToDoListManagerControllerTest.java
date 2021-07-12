@@ -110,10 +110,12 @@ class ToDoListManagerControllerTest {
     @Test
     void can_edit_list_item_description() {
         //initialize ToDoListModel
-        //populate toDoListGroup with one ToDoList
-        //populate ToDoList with one ToDoListItem
-        //call updateDescription using expected String
+        ToDoListModel test = new ToDoListModel();
+        //call updateDescription on ToDoListItem
+        test.toDoListGroup.get(0).list.get(0).updateDescription("test");
         //assert ToDoListItem has expected String as description
+        String actual = test.toDoListGroup.get(0).list.get(0).getDescription();
+        assertEquals(actual, "test");
     }
 
     @Test
